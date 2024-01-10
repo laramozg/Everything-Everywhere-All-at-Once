@@ -4,9 +4,14 @@ import com.example.db.exceptions.IncorrectUserCredentialsException;
 import com.example.db.interaction.ResponseUser;
 import com.example.db.jwt.JwtTokenProvider;
 import com.example.db.model.AuthorizationData;
+import com.example.db.model.Role;
 import com.example.db.model.User;
+import com.example.db.model.UserRole;
+import com.example.db.model.enums.RoleName;
 import com.example.db.repository.AuthorizationRepository;
+import com.example.db.repository.RoleRepository;
 import com.example.db.repository.UserRepository;
+import com.example.db.repository.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,23 +19,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class UserService {
 
-    private final  UserRepository userRepository;
-    private final  AuthorizationRepository authRepository;
-    private final  PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final AuthorizationRepository authRepository;
+    private final RoleRepository roleRepository;
+    private final UserRoleRepository userRoleRepository;
+    private final PasswordEncoder passwordEncoder;
     private final  JwtTokenProvider jwtTokenProvider;
-    @Autowired
-    public UserService(UserRepository userRepository, AuthorizationRepository authRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
-        this.userRepository = userRepository;
-        this.authRepository = authRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
 
 
-    public ResponseEntity<?> registration (String name, String surname,String login, String password) {
+    public ResponseEntity<?> registration (String name, String surname,String login, String password,String role) {
         userCredentialsValidation(login,password);
 
         User user = User.builder()
@@ -53,6 +54,20 @@ public class UserService {
 
         userRepository.save(user);
         authRepository.save(auth);
+
+        Role roles =  Role.builder()
+                .name(RoleName.Герой)
+                .build();
+        roleRepository.save(roles);
+
+        Role roleUser = roleRepository.findByName(RoleName.valueOf(role));
+
+        UserRole userRole = UserRole.builder()
+                .user(user)
+                .role(roleUser)
+                .build();
+        userRoleRepository.save(userRole);
+
         return new ResponseEntity<>(new ResponseUser(HttpStatus.CREATED.value(),"Регистрация прошла успешно" ),HttpStatus.OK);
     }
 

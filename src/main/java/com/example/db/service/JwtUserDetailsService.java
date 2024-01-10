@@ -16,16 +16,13 @@ import org.springframework.stereotype.Component;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-
+@RequiredArgsConstructor
 @Component
 public class JwtUserDetailsService implements UserDetailsService {
 
     private final AuthorizationRepository authRepository;
 
-    @Autowired
-    public JwtUserDetailsService( AuthorizationRepository authRepository) {
-        this.authRepository = authRepository;
-    }
+
     @Override
     public UserDetails loadUserByUsername(String username) {
         Optional<AuthorizationData> userOptional = authRepository.findById(username);

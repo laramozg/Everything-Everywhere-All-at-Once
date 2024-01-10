@@ -4,21 +4,24 @@ import lombok.*;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@IdClass(UserRoleId.class)
 @Entity
 @Table(name = "userRole")
-public class UserRole {
+public class UserRole  {
     @Id
     @ManyToOne
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "login")
+    @JoinColumn(name = "login", referencedColumnName = "login")
     private User user;
 }

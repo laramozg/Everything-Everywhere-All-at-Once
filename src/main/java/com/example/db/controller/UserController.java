@@ -20,7 +20,7 @@ public class UserController {
 
     @PostMapping("/reg")
     public ResponseEntity<?> registration(@RequestBody UserRequest userRequest) {
-        return userService.registration(userRequest.getName(), userRequest.getSurname(), userRequest.getLogin(), userRequest.getPassword());
+        return userService.registration(userRequest.getName(), userRequest.getSurname(), userRequest.getLogin(), userRequest.getPassword(),userRequest.getPole());
     }
 
     @PostMapping("/auth")
