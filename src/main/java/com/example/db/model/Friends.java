@@ -2,7 +2,7 @@ package com.example.db.model;
 import com.example.db.model.enums.StatusFriends;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Getter
 @Setter

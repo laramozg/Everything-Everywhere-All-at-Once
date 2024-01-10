@@ -2,8 +2,7 @@ package com.example.db.model;
 
 
 import lombok.*;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 
 @Getter

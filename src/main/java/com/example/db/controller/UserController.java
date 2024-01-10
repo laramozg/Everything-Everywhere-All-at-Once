@@ -1,5 +1,6 @@
 package com.example.db.controller;
 
+import com.example.db.model.AuthRequest;
 import com.example.db.model.UserRequest;
 import com.example.db.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +20,12 @@ public class UserController {
 
     @PostMapping("/reg")
     public ResponseEntity<?> registration(@RequestBody UserRequest userRequest) {
-        System.out.println("sds");
         return userService.registration(userRequest.getName(), userRequest.getSurname(), userRequest.getLogin(), userRequest.getPassword());
     }
 
     @PostMapping("/auth")
-    public ResponseEntity<?> authorization(@RequestBody UserRequest userRequest) {
-        return userService.authorization(userRequest.getLogin(), userRequest.getPassword());
+    public ResponseEntity<?> authorization(@RequestBody AuthRequest authRequest) {
+        return userService.authorization(authRequest.getLogin(), authRequest.getPassword());
     }
 
 }

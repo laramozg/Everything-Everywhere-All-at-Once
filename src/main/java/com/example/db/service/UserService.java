@@ -18,10 +18,8 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final  UserRepository userRepository;
-
     private final  AuthorizationRepository authRepository;
     private final  PasswordEncoder passwordEncoder;
-
     private final  JwtTokenProvider jwtTokenProvider;
     @Autowired
     public UserService(UserRepository userRepository, AuthorizationRepository authRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
@@ -34,7 +32,7 @@ public class UserService {
 
     public ResponseEntity<?> registration (String name, String surname,String login, String password) {
         userCredentialsValidation(login,password);
-        System.out.println(password);
+
         User user = User.builder()
                 .login(login)
                 .name(name)
@@ -47,7 +45,7 @@ public class UserService {
                 .user(user)
                 .build();
 
-        System.out.println(auth.getUsername());
+
         user.setAuthorizationData(auth);
         if (authRepository.findById(auth.getUsername()).isPresent()) {
             throw new IllegalArgumentException("Данное имя пользователя занято!");
