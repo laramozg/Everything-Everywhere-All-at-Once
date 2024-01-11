@@ -1,16 +1,14 @@
-package com.example.db.model;
+package com.example.db.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserRequest {
-    private String name;
-    private String surname;
+public class AuthRequest {
     private String login;
     private String password;
-    private String role;
 }

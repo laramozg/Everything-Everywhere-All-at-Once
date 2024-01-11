@@ -1,7 +1,7 @@
 package com.example.db.controller;
 
-import com.example.db.model.AuthRequest;
-import com.example.db.model.UserRequest;
+import com.example.db.dto.AuthRequest;
+import com.example.db.dto.UserRequest;
 import com.example.db.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ public class UserController {
 
     @PostMapping("/reg")
     public ResponseEntity<?> registration(@RequestBody UserRequest userRequest) {
-        return userService.registration(userRequest.getName(), userRequest.getSurname(), userRequest.getLogin(), userRequest.getPassword(),userRequest.getPole());
+        return userService.registration(userRequest.getName(), userRequest.getSurname(), userRequest.getLogin(), userRequest.getPassword(),userRequest.getRole());
     }
 
     @PostMapping("/auth")

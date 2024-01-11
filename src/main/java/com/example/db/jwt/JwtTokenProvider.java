@@ -18,27 +18,23 @@ import java.util.Date;
 public class JwtTokenProvider {
 
     //@Value("${}")
-    private String secret = "qwe";
+    //    private String secret = "qwe";
 
     //@Value("${jwt.token.expired}")
-    private long validityInMilSec = 360000;
-
+ //   private long validityInMilSec = 360000;
+    private final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private final long validityInMilliseconds = 360000;
     private final JwtUserDetailsService userDetailsService;
-
     public String createToken(String username) {
         Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilSec);
-        SecretKey key = Keys.hmacShaKeyFor(Keys.secretKeyFor(SignatureAlgorithm.HS256).getEncoded());
-
+        Date validity = new Date(now.getTime() + validityInMilliseconds);
 
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(now)
                 .setExpiration(validity)
-                .signWith(key, SignatureAlgorithm.HS256)
+                .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
-
-
     }
 
     public Authentication getAuthentication(String token) {
@@ -47,27 +43,29 @@ public class JwtTokenProvider {
     }
 
     public String getUsername(String token) {
-        return Jwts.parser().setSigningKey(secret.getBytes()).build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
-
+        return Jwts.parser().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().getSubject();
     }
 
     public String resolveAccessToken(HttpServletRequest req) {
-        return req.getHeader("Authorization");
+        String bearerToken = req.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7); // Exclude "Bearer "
+        }
+        return null;
     }
 
     public boolean validateToken(String token) throws JwtAuthenticationException {
         try {
-            Jws<Claims> claims = Jwts.parser().setSigningKey(secret.getBytes()).build()
-                    .parseClaimsJws(token);
+            Jwts.parser().setSigningKey(secretKey).build().parseClaimsJws(token);
+            return true;
+        } catch (ExpiredJwtException ex) {
+            ex.printStackTrace();
+            return false;
+        } catch (MalformedJwtException | UnsupportedJwtException | IllegalArgumentException | SignatureException e) {
 
-            return !claims.getBody().getExpiration().before(new Date());
-        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
-
     }
 
 

@@ -12,6 +12,7 @@ import jakarta.persistence.*;
 public class Hero {
     @Id
     private String login;
+    @Column(columnDefinition = "integer default 0")
     private Integer skill;
 
     @OneToOne

@@ -55,10 +55,6 @@ public class UserService {
         userRepository.save(user);
         authRepository.save(auth);
 
-        Role roles =  Role.builder()
-                .name(RoleName.Герой)
-                .build();
-        roleRepository.save(roles);
 
         Role roleUser = roleRepository.findByName(RoleName.valueOf(role));
 

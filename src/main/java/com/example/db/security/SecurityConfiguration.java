@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
-@  EnableJpaRepositories(basePackages = "com.example.db.repository")
+@ EnableJpaRepositories(basePackages = "com.example.db.repository")
 public class SecurityConfiguration {
     private final JwtTokenFilter jwtAuthFilter;
 
