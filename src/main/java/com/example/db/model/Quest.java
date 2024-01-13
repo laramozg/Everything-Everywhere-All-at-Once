@@ -1,5 +1,7 @@
 package com.example.db.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import jakarta.persistence.*;
 
@@ -13,11 +15,12 @@ import jakarta.persistence.*;
 public class Quest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String name;
 
     @ManyToOne
     @JoinColumn(name = "login")
-    private User user;  // Связь с таблицей users
+    @JsonBackReference
+    private User user;
 }

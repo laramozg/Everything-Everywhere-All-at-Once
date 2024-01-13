@@ -15,7 +15,7 @@ public class Account {
     @Id
     private String login;
 
-    @Column(columnDefinition = "string default nickname")
+    @Column(columnDefinition = "VARCHAR(255)")
     private String nickname;
     @Column(columnDefinition = "integer default 0")
     private Integer friends;

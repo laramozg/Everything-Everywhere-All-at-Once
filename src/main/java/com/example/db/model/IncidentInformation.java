@@ -12,7 +12,7 @@ import jakarta.persistence.*;
 public class IncidentInformation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "address_id")

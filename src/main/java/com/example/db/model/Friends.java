@@ -11,15 +11,16 @@ import jakarta.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "friends")
+@IdClass(FriendsId.class)
 public class Friends {
     @Id
     @ManyToOne
-    @JoinColumn(name = "login1")
+    @JoinColumn(name = "login1", referencedColumnName = "login")
     private User user1;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "login2")
+    @JoinColumn(name = "login2", referencedColumnName = "login")
     private User user2;
 
     @Enumerated(EnumType.STRING)
