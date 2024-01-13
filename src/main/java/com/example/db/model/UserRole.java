@@ -22,6 +22,6 @@ public class UserRole  {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "login", referencedColumnName = "login")
-    private User user;
+    @JoinColumn(name = "username", referencedColumnName = "username")
+    private AuthorizationData user;
 }

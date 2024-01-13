@@ -16,8 +16,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -59,7 +67,7 @@ public class UserService {
         Role roleUser = roleRepository.findByName(RoleName.valueOf(role));
 
         UserRole userRole = UserRole.builder()
-                .user(user)
+                .user(auth)
                 .role(roleUser)
                 .build();
         userRoleRepository.save(userRole);
@@ -69,16 +77,14 @@ public class UserService {
 
     public ResponseEntity<?> authorization (String login, String password) {
         AuthorizationData user = authRepository.findByUsername(login);
-        String token = jwtTokenProvider.createToken(login);
-        if (user == null) {
-            throw new IncorrectUserCredentialsException("Неправильный логин или пароль!");
-        }
-        if (passwordEncoder.matches(password,user.getPassword())) {
-            return new ResponseEntity<>(new ResponseUser(HttpStatus.OK.value(), "Вы успешно авторизовались!",token),HttpStatus.OK);
-        } else {
-            throw new IncorrectUserCredentialsException("Неправильный логин или пароль!");
 
+        String token = jwtTokenProvider.createToken(login);
+        if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
+            throw new IncorrectUserCredentialsException("Неправильный логин или пароль!");
         }
+
+        return new ResponseEntity<>(new ResponseUser(HttpStatus.OK.value(), "Вы успешно авторизовались!",token),HttpStatus.OK);
+
     }
     private void userCredentialsValidation(String username, String password) {
         if (!(password.length() <= 20 && 6 <= password.length())) {

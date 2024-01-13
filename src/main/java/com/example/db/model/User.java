@@ -3,6 +3,9 @@ package com.example.db.model;
 
 import lombok.*;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.List;
 
 
 @Getter
@@ -20,5 +23,6 @@ public class User {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private AuthorizationData authorizationData;
+
 
 }

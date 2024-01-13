@@ -28,6 +28,8 @@ public class SecurityConfiguration {
                 .formLogin().disable()
                 .logout().disable()
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/user/auth", "/user/reg").permitAll()
+                        .requestMatchers("/profile","/profile/**").hasAnyAuthority("ROLE_Герой", "ROLE_Координатор")
+                        .requestMatchers("/work/**").hasAnyAuthority("ROLE_Технический_специалист")
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

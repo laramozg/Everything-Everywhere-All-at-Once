@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface RoleRepository extends CrudRepository<Role,String> {
     Role findByName(RoleName name);
 
-    @Query("SELECT r.name FROM UserRole ur INNER JOIN ur.user u INNER JOIN ur.role r WHERE u.login = :login")
+    @Query("SELECT r.name FROM UserRole ur INNER JOIN ur.user u INNER JOIN ur.role r WHERE u.username = :login")
     String findByUser(@Param("login") String login);
 
 }
