@@ -1,6 +1,7 @@
 package com.example.db.controller;
 
 
+import com.example.db.dto.MessageRequest;
 import com.example.db.dto.NameRequest;
 import com.example.db.service.AccountService;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +53,15 @@ public class AccountController {
     @PostMapping("/requests")
     public ResponseEntity<?> acceptFriendshipRequest(@RequestBody NameRequest name){
         return accountService.acceptFriendshipRequest(name.getName());
+    }
+
+   @GetMapping("/messages")
+    public ResponseEntity<?> getMessages( @RequestBody NameRequest name){
+        return accountService.getMessages(name.getName());
+   }
+    @PostMapping("/messages")
+    public ResponseEntity<?> sendMessage( @RequestBody MessageRequest messageRequest){
+        return accountService.sendMessage(messageRequest.getName(), messageRequest.getText());
     }
 
 
