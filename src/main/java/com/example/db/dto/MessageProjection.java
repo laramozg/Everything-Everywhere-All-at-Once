@@ -1,4 +1,4 @@
-package com.example.db.repository;
+package com.example.db.dto;
 
 import java.sql.Timestamp;
 

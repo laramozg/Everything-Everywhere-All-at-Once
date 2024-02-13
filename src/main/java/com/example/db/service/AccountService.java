@@ -1,6 +1,7 @@
 package com.example.db.service;
 
 import com.example.db.dto.AccountResponse;
+import com.example.db.dto.MessageProjection;
 import com.example.db.model.*;
 import com.example.db.model.enums.RoleName;
 import com.example.db.model.enums.StatusFriends;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 

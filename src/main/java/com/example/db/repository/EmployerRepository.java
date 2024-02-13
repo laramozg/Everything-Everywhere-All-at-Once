@@ -1,6 +1,6 @@
 package com.example.db.repository;
 
-import com.example.db.dto.EmployerResponse;
+import com.example.db.dto.EmployerProjection;
 import com.example.db.model.Employer;
 import com.example.db.model.enums.StatusOrder;
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface EmployerRepository extends CrudRepository<Employer,String> {
 
-    @Query("SELECT NEW com.example.db.dto.EmployerResponse(e.order.id, e.hero.login, e.coordinator.login) FROM Employer e WHERE e.order.status = :state")
-    List<EmployerResponse> getEmployersByOrderStatus(@Param("state") StatusOrder state);
+    @Query(value = "SELECT e.order_id, e.hero,e.coordinator FROM employer e INNER JOIN orders o on e.order_id = o.id WHERE o.status = :state", nativeQuery = true)
+    List<EmployerProjection> getEmployersByOrderStatus(@Param("state") String state);
 
 }

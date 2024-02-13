@@ -70,13 +70,11 @@ public class TechnicalSpecialistService {
 
     public ResponseEntity<?> getOngoingOrders(){
 
-        return new ResponseEntity<>(employerRepository.getEmployersByOrderStatus(StatusOrder.PERFORMANCE), HttpStatus.OK);
+        return new ResponseEntity<>(employerRepository.getEmployersByOrderStatus(StatusOrder.PERFORMANCE.toString()), HttpStatus.OK);
     }
 
     public ResponseEntity<?> resultFinishDone(Integer id, String result){
-
         Order order = orderRepository.findById(id);
-        System.out.println(id);
         if (Objects.equals(result, "Done")){
             order.setStatus(StatusOrder.DONE);
         }

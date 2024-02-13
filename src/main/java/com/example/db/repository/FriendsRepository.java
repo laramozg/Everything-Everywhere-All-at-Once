@@ -1,7 +1,7 @@
 package com.example.db.repository;
 
+import com.example.db.dto.FriendsProjection;
 import com.example.db.model.Friends;
-import com.example.db.model.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -12,13 +12,13 @@ import java.util.List;
 @Repository
 public interface FriendsRepository extends CrudRepository<Friends,String> {
     @Query(value = "SELECT * FROM get_friends(:person,:status)", nativeQuery = true)
-    List<String> getFriends(@Param("person") String person,@Param("status") String status);
+    List<FriendsProjection> getFriends(@Param("person") String person, @Param("status") String status);
 
-    @Query(value = "SELECT f.login1 FROM friends f WHERE f.status = :status and f.login2 = :person", nativeQuery = true)
-    List<String> getFriendsRequest(@Param("person") String person,@Param("status") String status);
+    @Query(value = "SELECT f. login1 as friend FROM friends f WHERE f.status = :status and f.login2 = :person", nativeQuery = true)
+    List<FriendsProjection> getFriendsRequest(@Param("person") String person,@Param("status") String status);
 
     @Query(value = "SELECT * FROM get_people(:person)", nativeQuery = true)
-    List<String> getPerson(@Param("person") String person);
+    List<FriendsProjection> getPerson(@Param("person") String person);
 
 
     @Query(value = "DELETE FROM friends f where f.login1 = :user1 and f.login2 = :user2 or f.login2 = :user1 and f.login1 = :user2 ", nativeQuery = true)
