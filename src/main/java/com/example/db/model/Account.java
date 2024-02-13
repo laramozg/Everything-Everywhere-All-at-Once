@@ -3,6 +3,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Setter
@@ -21,7 +23,8 @@ public class Account {
     private Integer friends;
 
     @OneToOne
-    @JoinColumn(name = "login")
+    @JoinColumn(name = "login", referencedColumnName = "login", insertable = false, updatable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private User user;
 

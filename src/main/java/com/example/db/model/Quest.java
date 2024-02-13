@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Setter
@@ -20,7 +22,8 @@ public class Quest {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "login")
+    @JoinColumn(name = "login", referencedColumnName = "login")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     @JsonBackReference
     private User user;
 }

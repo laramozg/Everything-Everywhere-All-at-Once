@@ -3,6 +3,7 @@ package com.example.db.controller;
 
 import com.example.db.dto.MessageRequest;
 import com.example.db.dto.NameRequest;
+import com.example.db.dto.OrderRequest;
 import com.example.db.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -65,5 +66,25 @@ public class AccountController {
     }
 
 
+    @GetMapping("/moving/task")
+    public ResponseEntity<?> getAbstractTasks() {
+        return accountService.getAbstractTasks();
+    }
+
+    @PostMapping("/moving/result")
+    public ResponseEntity<?> resultMoving(@RequestBody NameRequest nameRequest) {
+        return accountService.resultMoving(nameRequest.getName());
+    }
+
+
+    @GetMapping("/incidents")
+    public ResponseEntity<?> getAllOrder(){
+        return accountService.getAllOrder();
+    }
+
+    @PostMapping("/incidents")
+    public ResponseEntity<?> reservationOrder(@RequestBody OrderRequest reservationOrderRequest){
+        return accountService.reservationOrder(reservationOrderRequest.getId(),reservationOrderRequest.getName());
+    }
 
 }

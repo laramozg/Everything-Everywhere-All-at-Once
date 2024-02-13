@@ -1,6 +1,9 @@
 package com.example.db.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Setter
@@ -16,6 +19,7 @@ public class Hero {
     private Integer skill;
 
     @OneToOne
-    @JoinColumn(name = "login")
+    @JoinColumn(name = "login", referencedColumnName = "login")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 }

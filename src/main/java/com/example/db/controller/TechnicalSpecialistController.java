@@ -1,6 +1,8 @@
 package com.example.db.controller;
 
+import com.example.db.dto.IncidentRequest;
 import com.example.db.dto.NameRequest;
+import com.example.db.dto.OrderRequest;
 import com.example.db.service.TechnicalSpecialistService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,4 +29,19 @@ public class TechnicalSpecialistController {
     public ResponseEntity<?> deleteTask(@RequestBody NameRequest name){
         return technicalSpecialistService.deleteTask(name.getName());
     }
+
+    @GetMapping("/incidents")
+    public ResponseEntity<?> getOngoingOrders(){
+        return technicalSpecialistService.getOngoingOrders();
+    }
+
+    @PostMapping("/incidents/addIncidents")
+    public ResponseEntity<?> addIncidents(@RequestBody IncidentRequest incidentRequest){
+        return technicalSpecialistService.addIncidents(incidentRequest.getMonster(),incidentRequest.getNameUniversal(),incidentRequest.getLatitude(),incidentRequest.getLongitude());
+    }
+    @PostMapping("/incidents")
+    public ResponseEntity<?> resultFinishDone(@RequestBody OrderRequest orderRequest){
+        return technicalSpecialistService.resultFinishDone(orderRequest.getId(),orderRequest.getName());
+    }
+
 }

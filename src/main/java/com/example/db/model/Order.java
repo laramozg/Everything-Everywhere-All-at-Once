@@ -2,6 +2,8 @@ package com.example.db.model;
 import com.example.db.model.enums.StatusOrder;
 import lombok.*;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Setter
@@ -16,8 +18,10 @@ public class Order {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "incident_id")
+    @JoinColumn(name = "incident_id", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private IncidentInformation incidentInformation;
 
+    @Enumerated(EnumType.STRING)
     private StatusOrder status;
 }

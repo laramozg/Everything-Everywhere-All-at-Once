@@ -18,7 +18,9 @@ import java.util.List;
 public class User {
     @Id
     private String login;
+    @Column(name = "name", length = 20, nullable = false)
     private String name;
+    @Column(name = "surname", length = 20, nullable = false)
     private String surname;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

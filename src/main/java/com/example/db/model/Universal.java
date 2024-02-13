@@ -19,12 +19,17 @@ public class Universal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer universal_id;
+    @Column(name = "name", nullable = false)
+    private String name;
     @Max(100)
     @Min(-100)
+    @Column(name = "coordinateX", nullable = false)
     private float coordinateX;
     @Max(100)
     @Min(-100)
+    @Column(name = "coordinateY", nullable = false)
     private float coordinateY;
+    @Column(name = "distance", nullable = false)
     private float distance;
 
 

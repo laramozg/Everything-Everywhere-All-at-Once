@@ -3,6 +3,8 @@ package com.example.db.model;
 import lombok.*;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.io.Serializable;
 
@@ -17,11 +19,13 @@ import java.io.Serializable;
 public class UserRole  {
     @Id
     @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Role role;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "username", referencedColumnName = "username")
+    @JoinColumn(name = "username", referencedColumnName = "username", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private AuthorizationData user;
 }

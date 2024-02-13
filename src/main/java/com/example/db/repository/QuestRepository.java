@@ -18,4 +18,8 @@ public interface QuestRepository extends CrudRepository<Quest, String> {
 
     @Transactional
     void deleteByName(String name);
+
+    @Query(value = "SELECT * FROM Quest ORDER BY RANDOM() LIMIT 5", nativeQuery = true)
+    List<Quest> findRandomQuests();
+
 }

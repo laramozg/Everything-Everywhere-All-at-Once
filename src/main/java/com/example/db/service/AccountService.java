@@ -1,21 +1,21 @@
 package com.example.db.service;
 
 import com.example.db.dto.AccountResponse;
-import com.example.db.dto.NameRequest;
-import com.example.db.model.Friends;
-import com.example.db.model.Message;
+import com.example.db.model.*;
 import com.example.db.model.enums.RoleName;
 import com.example.db.model.enums.StatusFriends;
+import com.example.db.model.enums.StatusOrder;
 import com.example.db.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,6 +28,9 @@ public class AccountService {
     private final RoleRepository roleRepository;
     private final FriendsRepository friendsRepository;
     private final MessageRepository messageRepository;
+    private final QuestRepository questRepository;
+    private final OrderRepository orderRepository;
+    private final EmployerRepository employerRepository;
 
     public ResponseEntity<?> getProfileInformation(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -77,6 +80,7 @@ public class AccountService {
     }
 
     public ResponseEntity<?> acceptFriendshipRequest(String name){
+        System.out.println(userRepository.findByLogin(name).getLogin() + userRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getLogin());
         Friends friends = friendsRepository.findByUser1AndUser2(userRepository.findByLogin(name).getLogin(),userRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getLogin());
         friends.setStatus(StatusFriends.REQUEST_ACCEPTED);
         friendsRepository.save(friends);
@@ -113,5 +117,37 @@ public class AccountService {
         LocalDateTime customDateTime = LocalDateTime.of(year, month, day, hour, minute);
 
         return Timestamp.valueOf(customDateTime);
+    }
+
+    public ResponseEntity<?> getAbstractTasks() {
+        return new ResponseEntity<>(questRepository.findRandomQuests(),HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> resultMoving(String result) {
+        if (Objects.equals(result, "Done")) {
+            Hero hero = heroRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+            hero.setSkill(hero.getSkill()+1);
+            heroRepository.save(hero);
+            return new ResponseEntity<>("Скилл увеличен",HttpStatus.OK);
+        }
+        else return new ResponseEntity<>("Скилл не изменился",HttpStatus.OK);
+    }
+    public ResponseEntity<?> getAllOrder(){
+        return new ResponseEntity<>(orderRepository.getOrders(),HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> reservationOrder(Integer id, String name){
+        Order order = orderRepository.findById(id);
+        order.setStatus(StatusOrder.PERFORMANCE);
+        orderRepository.save(order);
+
+        Employer employer = Employer.builder()
+                .order(order)
+                .hero(userRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()))
+                .coordinator(userRepository.findByLogin(name))
+                .build();
+        employerRepository.save(employer);
+
+        return  new ResponseEntity<>(orderRepository.getAddress(id),HttpStatus.OK);
     }
 }

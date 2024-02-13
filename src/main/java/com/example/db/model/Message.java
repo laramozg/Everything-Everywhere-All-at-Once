@@ -3,6 +3,9 @@ package com.example.db.model;
 import lombok.*;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.sql.Timestamp;
 
 @Getter
@@ -18,12 +21,14 @@ public class Message {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "login1")
-    private User sender;  // Связь с таблицей users
+    @JoinColumn(name = "login1", referencedColumnName = "login")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
+    private User sender;
 
     @ManyToOne
-    @JoinColumn(name = "login2")
-    private User receiver;  // Связь с таблицей users
+    @JoinColumn(name = "login2", referencedColumnName = "login")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
+    private User receiver;
 
     private Timestamp time;
 
