@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -16,17 +17,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
-@ EnableJpaRepositories(basePackages = "com.example.db.repository")
+@EnableJpaRepositories(basePackages = "com.example.db.repository")
 public class SecurityConfiguration {
     private final JwtTokenFilter jwtAuthFilter;
 
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.csrf()
-                .disable()
-                .formLogin().disable()
-                .logout().disable()
+        return http.cors()
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().csrf().disable()
+
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/user/auth", "/user/reg").permitAll()
                         .requestMatchers("/profile","/profile/**").hasAnyAuthority("ROLE_Герой", "ROLE_Координатор")
                         .requestMatchers("/work/**").hasAnyAuthority("ROLE_Технический_специалист")

@@ -84,10 +84,16 @@ public class AccountService {
     }
 
     public ResponseEntity<?> acceptFriendshipRequest(String name){
-        System.out.println(userRepository.findByLogin(name).getLogin() + userRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getLogin());
         Friends friends = friendsRepository.findByUser1AndUser2(userRepository.findByLogin(name).getLogin(),userRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getLogin());
         friends.setStatus(StatusFriends.REQUEST_ACCEPTED);
         friendsRepository.save(friends);
+
+        Account user = accountRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        user.setFriends(user.getFriends()+1);
+        Account friend = accountRepository.findByLogin(name);
+        friend.setFriends(friend.getFriends()+1);
+        accountRepository.save(user);
+        accountRepository.save((friend));
         return new ResponseEntity<>("Пользователь добавлен в друзья!",HttpStatus.OK);
     }
 

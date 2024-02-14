@@ -39,7 +39,10 @@ public class UserService {
     private final  JwtTokenProvider jwtTokenProvider;
 
 
-    public ResponseEntity<?> registration (String name, String surname,String login, String password,String role) {
+    public ResponseEntity<?> registration (String name, String surname,String login, String password,String role, String code) {
+        if (code != null && !code.equals("L2M6")){
+            return new ResponseEntity<>("Неверный код!",HttpStatus.OK);
+        }
         userCredentialsValidation(login,password);
 
         User user = User.builder()
