@@ -25,6 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -40,7 +41,7 @@ public class UserService {
 
 
     public ResponseEntity<?> registration (String name, String surname,String login, String password,String role, String code) {
-        if (code != null && !code.equals("L2M6")){
+        if (!Objects.equals(code, "") && !code.equals("L2M6")){
             return new ResponseEntity<>("Неверный код!",HttpStatus.OK);
         }
         userCredentialsValidation(login,password);
