@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "heroAbility")
+@IdClass(HeroAbilityId.class)
 public class HeroAbility {
     @Id
     @ManyToOne
@@ -21,6 +22,8 @@ public class HeroAbility {
     private Ability ability;
 
     @ManyToOne
-    @JoinColumn(name = "universal_id")
+    @JoinColumn(name = "universal_id", nullable = true)
     private Universal universal;
+
+    private Integer masteryPercentage;
 }

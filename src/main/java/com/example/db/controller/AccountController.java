@@ -1,14 +1,14 @@
 package com.example.db.controller;
 
 
-import com.example.db.dto.MessageRequest;
-import com.example.db.dto.NameRequest;
-import com.example.db.dto.OrderRequest;
+import com.example.db.dto.*;
 import com.example.db.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -87,4 +87,14 @@ public class AccountController {
         return accountService.reservationOrder(reservationOrderRequest.getId(),reservationOrderRequest.getName());
     }
 
+
+    @GetMapping("/questionnaire")
+    public ResponseEntity<?> getSkills(){
+        return accountService.getSkills();
+    }
+
+    @PostMapping("/questionnaire")
+    public ResponseEntity<?> saveSkills(@RequestBody List<HeroAbilityRequest> list){
+        return accountService.saveSkills(list);
+    }
 }

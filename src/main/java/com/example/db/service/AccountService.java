@@ -1,6 +1,7 @@
 package com.example.db.service;
 
 import com.example.db.dto.AccountResponse;
+import com.example.db.dto.HeroAbilityRequest;
 import com.example.db.dto.MessageProjection;
 import com.example.db.model.*;
 import com.example.db.model.enums.RoleName;
@@ -31,6 +32,9 @@ public class AccountService {
     private final QuestRepository questRepository;
     private final OrderRepository orderRepository;
     private final EmployerRepository employerRepository;
+    private final HeroAbilityRepository  heroAbilityRepository;
+    private final AbilityRepository abilityRepository;
+    private final UniversalRepository universalRepository;
 
     public ResponseEntity<?> getProfileInformation(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -149,5 +153,34 @@ public class AccountService {
         employerRepository.save(employer);
 
         return  new ResponseEntity<>(orderRepository.getAddress(id),HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> getSkills(){
+        return new ResponseEntity<>(heroAbilityRepository.getAbility(SecurityContextHolder.getContext().getAuthentication().getName()),HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> saveSkills(List<HeroAbilityRequest> list){
+        for (HeroAbilityRequest heroAbilityRequest : list) {
+            Ability ability = abilityRepository.findByTitle(heroAbilityRequest.getTitle());
+
+            System.out.println(ability.getId());
+
+            HeroAbility heroAbility = heroAbilityRepository.findByAbilityAndUser(ability, userRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
+            heroAbility.setMasteryPercentage(heroAbilityRequest.getMastery_percentage());
+            Universal universal = universalRepository.findByDistance(chooseUniversal(heroAbility.getMasteryPercentage()));
+            heroAbility.setUniversal(universal);
+            heroAbilityRepository.save(heroAbility);
+        }
+
+        return new ResponseEntity<>("Данные анкеты сохранены!",HttpStatus.OK);
+    }
+
+    private Integer chooseUniversal(Integer percentage){
+        List<Integer> dist = universalRepository.getDistinct();
+        Integer result = 0;
+        for (int i = 0; dist.get(i) <= 100-percentage; i++ ){
+            result = dist.get(i);
+        }
+        return result;
     }
 }

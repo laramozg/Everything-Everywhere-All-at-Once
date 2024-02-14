@@ -18,6 +18,7 @@ import java.util.List;
 public class Universal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "universal_id")
     private Integer universal_id;
     @Column(name = "name", nullable = false)
     private String name;
