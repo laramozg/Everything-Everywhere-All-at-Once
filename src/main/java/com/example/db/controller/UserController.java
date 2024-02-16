@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
+
     @PostMapping("/reg")
     public ResponseEntity<?> registration(@RequestBody UserRequest userRequest) {
         return userService.registration(userRequest.getName(), userRequest.getSurname(), userRequest.getLogin(), userRequest.getPassword(),userRequest.getRole(),userRequest.getCode());

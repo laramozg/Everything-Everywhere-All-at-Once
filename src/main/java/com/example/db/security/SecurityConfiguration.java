@@ -29,7 +29,7 @@ public class SecurityConfiguration {
     public CorsConfiguration corsConfiguration() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.applyPermitDefaultValues();
-        corsConfiguration.setAllowedOriginPatterns(List.of("http://localhost:8080"));
+        corsConfiguration.setAllowedOriginPatterns(List.of("http://localhost:3000"));
         corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         return corsConfiguration;
     }
