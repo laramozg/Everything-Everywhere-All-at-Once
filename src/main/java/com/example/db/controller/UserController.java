@@ -12,16 +12,15 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
+@CrossOrigin(origins = "*")
 public class UserController {
     private final UserService userService;
 
-    @CrossOrigin
     @PostMapping("/reg")
     public ResponseEntity<?> registration(@RequestBody UserRequest userRequest) {
         return userService.registration(userRequest.getName(), userRequest.getSurname(), userRequest.getLogin(), userRequest.getPassword(),userRequest.getRole(),userRequest.getCode());
     }
 
-    @CrossOrigin
     @PostMapping("/auth")
     public ResponseEntity<?> authorization(@RequestBody AuthRequest authRequest) {
         return userService.authorization(authRequest.getLogin(), authRequest.getPassword());
