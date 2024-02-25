@@ -2,6 +2,7 @@ package com.example.db.repository;
 
 import com.example.db.dto.FriendsProjection;
 import com.example.db.model.Friends;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -20,7 +21,7 @@ public interface FriendsRepository extends CrudRepository<Friends,String> {
     @Query(value = "SELECT * FROM get_people(:person)", nativeQuery = true)
     List<FriendsProjection> getPerson(@Param("person") String person);
 
-
+    @Modifying
     @Query(value = "DELETE FROM friends f where f.login1 = :user1 and f.login2 = :user2 or f.login2 = :user1 and f.login1 = :user2 ", nativeQuery = true)
     @Transactional
     void deleteFriendsByName(@Param("user1") String user1, @Param("user2") String user2);

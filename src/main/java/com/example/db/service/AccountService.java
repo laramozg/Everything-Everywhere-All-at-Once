@@ -61,6 +61,12 @@ public class AccountService {
 
     public ResponseEntity<?> deleteFriends(String name){
         friendsRepository.deleteFriendsByName(SecurityContextHolder.getContext().getAuthentication().getName(),name);
+        Account user = accountRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        user.setFriends(user.getFriends()-1);
+        Account friend = accountRepository.findByLogin(name);
+        friend.setFriends(friend.getFriends()-1);
+        accountRepository.save(user);
+        accountRepository.save((friend));
         return new ResponseEntity<>("Друг успешно удален!",HttpStatus.OK);
     }
 
