@@ -190,8 +190,10 @@ public class AccountService {
     private Integer chooseUniversal(Integer percentage){
         List<Integer> dist = universalRepository.getDistinct();
         Integer result = 0;
-        for (int i = 0; dist.get(i) <= 100-percentage; i++ ){
-            result = dist.get(i);
+        System.out.println(dist);
+        for (Integer integer : dist) {
+            if (integer <= 100 - percentage)
+                result = integer;
         }
         return result;
     }
