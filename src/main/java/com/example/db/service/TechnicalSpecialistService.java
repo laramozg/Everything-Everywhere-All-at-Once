@@ -82,4 +82,12 @@ public class TechnicalSpecialistService {
         orderRepository.save(order);
         return new ResponseEntity<>("Данные заказа обновлены!", HttpStatus.OK);
     }
+
+    public ResponseEntity<?> getAllMonsters(){
+        return  new ResponseEntity<>(monsterRepository.allNameMonsters(), HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> getAllUniversals(){
+        return new ResponseEntity<>(universalRepository.allNameUniversals(), HttpStatus.OK);
+    }
 }

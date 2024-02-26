@@ -40,6 +40,15 @@ public class TechnicalSpecialistController {
         return technicalSpecialistService.getOngoingOrders();
     }
 
+    @GetMapping("/incidents/monsters")
+    public ResponseEntity<?> getAllMonsters(){
+        return technicalSpecialistService.getAllMonsters();
+    }
+
+    @GetMapping("/incidents/universals")
+    public ResponseEntity<?> getAllUniversals(){
+        return technicalSpecialistService.getAllUniversals();
+    }
 
     @PostMapping("/incidents/addIncidents")
     public ResponseEntity<?> addIncidents(@RequestBody IncidentRequest incidentRequest){
