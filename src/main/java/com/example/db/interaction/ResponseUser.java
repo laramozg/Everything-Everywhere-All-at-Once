@@ -6,18 +6,18 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ResponseUser {
-    public ResponseUser(int statusCode, String message) {
-        this.statusCode = statusCode;
+    public ResponseUser(String role, String message) {
+        this.role = role;
         this.message = message;
     }
 
-    public ResponseUser(int statusCode, String message, String accessToken) {
-        this.statusCode = statusCode;
+    public ResponseUser(String role, String message, String accessToken) {
+        this.role = role;
         this.message = message;
         this.accessToken = accessToken;
     }
 
-    private int statusCode;
+    private String role;
     private String message;
     private String accessToken;
 }

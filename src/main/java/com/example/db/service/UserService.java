@@ -13,20 +13,12 @@ import com.example.db.repository.RoleRepository;
 import com.example.db.repository.UserRepository;
 import com.example.db.repository.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+
 
 @RequiredArgsConstructor
 @Service
@@ -76,7 +68,7 @@ public class UserService {
                 .build();
         userRoleRepository.save(userRole);
 
-        return new ResponseEntity<>(new ResponseUser(HttpStatus.CREATED.value(),"Регистрация прошла успешно" ),HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseUser(RoleName.valueOf(role).toString(),"Регистрация прошла успешно" ),HttpStatus.OK);
     }
 
     public ResponseEntity<?> authorization (String login, String password) {
@@ -87,7 +79,7 @@ public class UserService {
             throw new IncorrectUserCredentialsException("Неправильный логин или пароль!");
         }
 
-        return new ResponseEntity<>(new ResponseUser(HttpStatus.OK.value(), "Вы успешно авторизовались!",token),HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseUser(roleRepository.findByUser(login), "Вы успешно авторизовались!",token),HttpStatus.OK);
 
     }
     private void userCredentialsValidation(String username, String password) {
