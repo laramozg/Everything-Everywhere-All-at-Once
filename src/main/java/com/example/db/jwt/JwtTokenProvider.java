@@ -17,13 +17,9 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
-    //@Value("${}")
-    //    private String secret = "qwe";
 
-    //@Value("${jwt.token.expired}")
- //   private long validityInMilSec = 360000;
     private final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private final long validityInMilliseconds = 360000;
+    private final long validityInMilliseconds = 3600000;
     private final JwtUserDetailsService userDetailsService;
     public String createToken(String username) {
         Date now = new Date();

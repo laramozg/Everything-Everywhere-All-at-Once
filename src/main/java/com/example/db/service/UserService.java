@@ -1,7 +1,7 @@
 package com.example.db.service;
 
 import com.example.db.exceptions.IncorrectUserCredentialsException;
-import com.example.db.interaction.ResponseUser;
+import com.example.db.dto.ResponseUser;
 import com.example.db.jwt.JwtTokenProvider;
 import com.example.db.model.AuthorizationData;
 import com.example.db.model.Role;

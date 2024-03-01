@@ -44,7 +44,7 @@ public class AccountService {
             return new ResponseEntity<>(new AccountResponse(accountRepository.findByLogin(username).getNickname(),accountRepository.findByLogin(username).getFriends(),heroRepository.findByLogin(username).getSkill()), HttpStatus.OK);
         }
         else
-            return new ResponseEntity<>(accountRepository.findByLogin(username), HttpStatus.OK);
+            return new ResponseEntity<>(new AccountResponse(accountRepository.findByLogin(username).getNickname(),accountRepository.findByLogin(username).getFriends(), null), HttpStatus.OK);
 
     }
     public ResponseEntity<?> changeNickname(String newNick){

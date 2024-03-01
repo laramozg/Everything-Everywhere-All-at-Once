@@ -1,4 +1,4 @@
-package com.example.db.interaction;
+package com.example.db.exceptions;
 
 import lombok.Builder;
 import lombok.Data;

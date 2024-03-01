@@ -1,4 +1,4 @@
-package com.example.db.interaction;
+package com.example.db.dto;
 
 import lombok.Getter;
 import lombok.Setter;
