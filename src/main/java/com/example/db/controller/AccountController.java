@@ -64,13 +64,13 @@ public class AccountController {
     }
 
 
-    @GetMapping("/messages")
+    @PostMapping("/messages")
     public ResponseEntity<?> getMessages( @RequestBody NameRequest name){
         return accountService.getMessages(name.getName());
    }
 
 
-    @PostMapping("/messages")
+    @PostMapping("/sendMessages")
     public ResponseEntity<?> sendMessage( @RequestBody MessageRequest messageRequest){
         return accountService.sendMessage(messageRequest.getName(), messageRequest.getText());
     }
