@@ -13,8 +13,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/profile")
-@CrossOrigin(origins = "*")
+@RequestMapping("/api/profile")
 public class AccountController {
     private final AccountService accountService;
 

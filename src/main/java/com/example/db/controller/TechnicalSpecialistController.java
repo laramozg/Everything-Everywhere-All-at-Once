@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/work")
-@CrossOrigin(origins = "*")
+@RequestMapping("/api/work")
 public class TechnicalSpecialistController {
     private final TechnicalSpecialistService technicalSpecialistService;
 

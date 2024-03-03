@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.5f4a13e5.css",
+    "main.js": "/static/js/main.add789b4.js",
+    "static/media/anime4.gif": "/static/media/anime4.301d3e1e1ebd666866eb.gif",
+    "static/media/anime.gif": "/static/media/anime.c1e3454f86a6b9806974.gif",
+    "static/media/anime3.gif": "/static/media/anime3.a8e244474c0637b1efcc.gif",
+    "static/media/anime2.gif": "/static/media/anime2.f240af36c882cc217b12.gif",
+    "static/media/logoAll.jpg": "/static/media/logoAll.9752a79763137bc43b75.jpg",
+    "static/media/hello_kitty_welcome.png": "/static/media/hello_kitty_welcome.ab6c73fb4e17db337226.png",
+    "index.html": "/index.html",
+    "main.5f4a13e5.css.map": "/static/css/main.5f4a13e5.css.map",
+    "main.add789b4.js.map": "/static/js/main.add789b4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5f4a13e5.css",
+    "static/js/main.add789b4.js"
+  ]
+}

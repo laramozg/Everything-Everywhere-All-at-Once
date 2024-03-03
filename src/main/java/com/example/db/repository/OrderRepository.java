@@ -14,6 +14,7 @@ public interface OrderRepository extends CrudRepository<Order,String> {
     @Query(value = "SELECT * FROM get_order()", nativeQuery = true)
     List<MonsterProjection> getOrders();
 
+
     Order findById(Integer id);
 
     @Query(value = "SELECT * FROM get_info_about_order(:id)", nativeQuery = true)
