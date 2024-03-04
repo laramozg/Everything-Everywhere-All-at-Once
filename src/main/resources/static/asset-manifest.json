@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.5f4a13e5.css",
-    "main.js": "/static/js/main.add789b4.js",
+    "main.js": "/static/js/main.d0900780.js",
     "static/media/anime4.gif": "/static/media/anime4.301d3e1e1ebd666866eb.gif",
     "static/media/anime.gif": "/static/media/anime.c1e3454f86a6b9806974.gif",
     "static/media/anime3.gif": "/static/media/anime3.a8e244474c0637b1efcc.gif",
@@ -10,10 +10,10 @@
     "static/media/hello_kitty_welcome.png": "/static/media/hello_kitty_welcome.ab6c73fb4e17db337226.png",
     "index.html": "/index.html",
     "main.5f4a13e5.css.map": "/static/css/main.5f4a13e5.css.map",
-    "main.add789b4.js.map": "/static/js/main.add789b4.js.map"
+    "main.d0900780.js.map": "/static/js/main.d0900780.js.map"
   },
   "entrypoints": [
     "static/css/main.5f4a13e5.css",
-    "static/js/main.add789b4.js"
+    "static/js/main.d0900780.js"
   ]
 }

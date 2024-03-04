@@ -109,4 +109,9 @@ public class AccountController {
     public ResponseEntity<?> saveSkills(@RequestBody List<HeroAbilityRequest> list){
         return accountService.saveSkills(list);
     }
+
+    @GetMapping("/skillModel")
+    public ResponseEntity<?> getSkillModel(){
+        return accountService.getSkillModel();
+    }
 }

@@ -175,8 +175,6 @@ public class AccountService {
         for (HeroAbilityRequest heroAbilityRequest : list) {
             Ability ability = abilityRepository.findByTitle(heroAbilityRequest.getTitle());
 
-            System.out.println(ability.getId());
-
             HeroAbility heroAbility = heroAbilityRepository.findByAbilityAndUser(ability, userRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
             heroAbility.setMasteryPercentage(heroAbilityRequest.getMastery_percentage());
             Universal universal = universalRepository.findByDistance(chooseUniversal(heroAbility.getMasteryPercentage()));
@@ -190,11 +188,14 @@ public class AccountService {
     private Integer chooseUniversal(Integer percentage){
         List<Integer> dist = universalRepository.getDistinct();
         Integer result = 0;
-        System.out.println(dist);
         for (Integer integer : dist) {
             if (integer <= 100 - percentage)
                 result = integer;
         }
         return result;
+    }
+
+    public ResponseEntity<?> getSkillModel(){
+        return new ResponseEntity<>(heroAbilityRepository.getUserModel(SecurityContextHolder.getContext().getAuthentication().getName()),HttpStatus.OK);
     }
 }

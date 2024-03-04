@@ -1,6 +1,7 @@
 package com.example.db.repository;
 
 import com.example.db.dto.AbilityProjection;
+import com.example.db.dto.UserModelProjection;
 import com.example.db.model.Ability;
 import com.example.db.model.HeroAbility;
 import com.example.db.model.HeroAbilityId;
@@ -18,4 +19,7 @@ public interface HeroAbilityRepository extends CrudRepository<HeroAbility, HeroA
     @Query("SELECT ha FROM HeroAbility ha WHERE ha.ability = :ability AND ha.user = :user")
     HeroAbility findByAbilityAndUser(@Param("ability") Ability ability, @Param("user") User user);
 
+
+    @Query(value = "select * from get_user_skill_model(:person)", nativeQuery = true)
+    List<UserModelProjection> getUserModel(@Param("person") String person);
 }
