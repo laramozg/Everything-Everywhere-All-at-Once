@@ -197,4 +197,8 @@ public class AccountService {
         }
         return result;
     }
+
+    public ResponseEntity<?> getSkillModel(){
+        return new ResponseEntity<>(heroAbilityRepository.getUserModel(SecurityContextHolder.getContext().getAuthentication().getName()),HttpStatus.OK);
+    }
 }
